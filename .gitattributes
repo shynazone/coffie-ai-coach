@@ -1,0 +1,29 @@
+# Normalize line endings for all text files
+* text=auto
+
+# Shell scripts (important for CI / cloud)
+*.sh text eol=lf
+
+# Windows scripts
+*.cmd text eol=crlf
+*.bat text eol=crlf
+
+# Java & config files
+*.java text
+*.xml text
+*.yml text
+*.yaml text
+*.properties text
+
+# Frontend files (later)
+*.js text
+*.jsx text
+*.ts text
+*.tsx text
+*.json text
+*.css text
+*.html text
+
+# Terraform
+*.tf text
+*.tfvars text
