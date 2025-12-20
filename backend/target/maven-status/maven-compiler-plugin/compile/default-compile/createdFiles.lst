@@ -1,2 +1,4 @@
 com\coffie\coffie_ai_coach\CoffieAiCoachApplication.class
+com\coffie\coffie_ai_coach\dto\JournalEntryRequest.class
 com\coffie\coffie_ai_coach\controller\HealthController.class
+com\coffie\coffie_ai_coach\controller\JournalController.class
