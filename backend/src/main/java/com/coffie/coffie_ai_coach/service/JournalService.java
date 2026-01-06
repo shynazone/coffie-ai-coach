@@ -1,6 +1,7 @@
 package com.coffie.coffie_ai_coach.service;
 
-import com.coffie.coffie_ai_coach.dto.JournalEntryRequest;
+import com.coffie.coffie_ai_coach.exception.JournalNotFoundException;
+import com.coffie.coffie_ai_coach.model.dto.JournalEntryRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -18,6 +19,14 @@ public class JournalService {
     public List<JournalEntryRequest> getEntries(){
         System.out.println(entries);
         return entries;
+    }
+
+    public JournalEntryRequest getEntryByIndex(int index){
+        System.out.println(entries);
+        if(index<0 || index> entries.size()){
+            throw new JournalNotFoundException("Journal Not found");
+        }
+        return entries.get(index);
     }
 
 }
