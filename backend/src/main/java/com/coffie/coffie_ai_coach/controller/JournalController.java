@@ -12,7 +12,11 @@ import java.util.List;
 @RequestMapping("/api/journal")
 public class JournalController {
 
-    JournalService journalService = new JournalService();
+    private final JournalService journalService;
+
+    public JournalController(JournalService journalService) {
+        this.journalService = journalService;
+    }
 
     @PostMapping
     public JournalEntryRequest createJournalEntry(@Valid @RequestBody JournalEntryRequest entryRequest){
@@ -23,9 +27,9 @@ public class JournalController {
     public List<JournalEntryRequest> getAllEntries(){
         return journalService.getEntries();
     }
-
-    @GetMapping("/{index}")
-    public JournalEntryRequest getEntryByIndex(@PathVariable int index){
-        return journalService.getEntryByIndex(index);
-    }
+//
+//    @GetMapping("/{index}")
+//    public JournalEntryRequest getEntryByIndex(@PathVariable int index){
+//        return journalService.getEntryByIndex(index);
+//    }
 }
