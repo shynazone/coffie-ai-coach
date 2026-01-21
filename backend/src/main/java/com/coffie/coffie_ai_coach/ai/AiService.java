@@ -5,26 +5,22 @@ import com.coffie.coffie_ai_coach.model.dto.JournalEntryRequest;
 import com.coffie.coffie_ai_coach.service.JournalService;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 
 @Service
 public class AiService {
     private final JournalService journalService;
-    private final AiClient aiClient;
+    private final HuggingFaceAiClient aiClient;
 
-    public AiService(JournalService journalService, AiClient aiClient){
+    public AiService(JournalService journalService, HuggingFaceAiClient aiClient){
         this.journalService = journalService;
         this.aiClient = aiClient;
     }
 
     public AiInsightResponse getInsights() {
 
-        List<String> reflections = journalService.getEntries().stream().
-                map(JournalEntryRequest::getReflection).toList();
+        String combinedJournalText = journalService.getEntries().stream().
+                map(JournalEntryRequest::getReflection).reduce("", (a, b)->a+". "+b);
 
-        String insight = aiClient.generateInsight(reflections);
-
-        return new AiInsightResponse(insight, "reflective", "tip #1 from ai");
-
+        return aiClient.getInsight(combinedJournalText);
     }
 }

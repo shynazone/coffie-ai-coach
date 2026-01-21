@@ -6,6 +6,8 @@ function Journal() {
     const [title, setTitle] = useState("");
     const [reflection, setReflection] = useState("");
     const [error, setError] = useState("");
+    const [aiInsight, setAiInsight] = useState(null);
+    const [aiError, setAiError] = useState("");
 
     // useEffect(() => {
     //     fetch("http://localhost:8080/api/journal")
@@ -57,6 +59,18 @@ function Journal() {
             .catch((err) => setError(err.message));
     };
 
+    const getAiInsight = () => {
+        axiosClient
+            .get("/ai/insight")
+            .then((res=>{
+                setAiInsight(res.data);
+                setAiError("");
+            }))
+            .catch(()=>{
+                setAiError("Failed to get AI Insight");
+            });
+    };
+
     return (
         <div style={{ padding: "20px" }}>
             <h2>My Journal</h2>
@@ -88,6 +102,23 @@ function Journal() {
                     </li>
                 ))}
             </ul>
+
+            <hr />
+
+            <button onClick={getAiInsight}>
+                Get AI Insight
+            </button>
+
+            {aiError && <p style={{ color: "red" }}>{aiError}</p>}
+
+            {aiInsight && (
+                <div style={{ marginTop: "15px", padding: "10px", border: "1px solid #ccc" }}>
+                    <h3>AI Insight</h3>
+                    <p><strong>Summary:</strong> {aiInsight.summary}</p>
+                    <p><strong>Mood:</strong> {aiInsight.mood}</p>
+                    <p><strong>Suggestion:</strong> {aiInsight.suggestion}</p>
+                </div>
+            )}
         </div>
     );
 }
