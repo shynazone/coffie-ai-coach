@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "https://coffie-ai-coach-frontend.onrender.com/")
 @RestController
 @RequestMapping("/api/journal")
 public class JournalController {
